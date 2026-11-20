@@ -1,4 +1,3 @@
-# Fractals-and-Recursion
 # RoastChickenPredator
 
 # Fractals and Recursion
@@ -54,46 +53,65 @@ This part of the project includes:
 
 This part introduces recursive functions and the concept of a call tree to illustrate how a recursive function calls itself and how these calls are structured.
 
+---
+
 ## How to Run the Code
 
 ### Requirements
+
 - Python 3
-- Jupyter Notebook
 - NumPy
 - Matplotlib
 - Pandas
 
-### Installation
+### 1. Install the Required Libraries
 
-Install the required libraries using the following command:
+Open a terminal or command prompt in the project directory and install the required libraries using:
 
 ```bash
-pip install numpy matplotlib pandas
+pip install -r requirements.txt
 ```
 
-### Execution
+The `requirements.txt` file contains the libraries required to run the program.
 
-The programs are implemented in Jupyter Notebook. To execute them:
+### 2. Run the Program
 
-1. Open the corresponding Jupyter Notebook for the fractal you want to explore.
-2. Run the notebook cells sequentially.
-3. Adjust the recursion depth or number of iterations as specified in each program to explore different fractal patterns and results.
+Run the main program using the following command:
 
-#### Koch Snowflake
-- Set the recursion depth to generate and visualize the Koch Snowflake.
-- Generate a Koch Curve representing a single side of the snowflake.
-- Calculate the number of segments, perimeter, area, and recursive function calls at different depths.
-- Export collected data to CSV files.
-- Generate graphs to investigate the relationship between recursion depth, perimeter, and area.
+```bash
+python main.py
+```
 
-#### Sierpiński Triangle
-- Set the recursion depth to recursively subdivide the initial triangle.
-- Visualize the resulting Sierpiński Triangle using Matplotlib.
+The program will automatically:
+- Read the maximum recursion depth from `config.txt` if the file exists.
+- Use a default recursion depth of 6 if `config.txt` is missing or invalid.
+- Generate and calculate metrics for the Koch Snowflake and Sierpiński Triangle at each recursion depth.
+- Display the comparison table in the terminal.
+- Export the calculated data to `output/fractal_metrics.csv`.
+- Generate and save the comparison graphs as `output/fractal_comparison.png`.
 
-#### Chaos Game
-- Set the number of iterations to control the number of points generated.
-- Randomly select a triangle vertex and move the current point halfway toward the selected vertex at each iteration.
-- Plot the generated points to visualize the Sierpiński Triangle pattern.
+### 3. Configure the Recursion Depth (Optional)
+
+You can customize the maximum recursion depth by creating a file named `config.txt` in the same directory as `main.py`.
+
+Write an integer representing the desired maximum recursion depth in the file. For example:
+
+```text
+4
+```
+
+The program will then calculate the fractal metrics from depth 0 through depth 4.
+
+If the file is missing or contains an invalid value, the program will use the default maximum depth of 6.
+
+### 4. View the Results
+
+After running the program, the generated files will be saved in the `output` directory.
+
+- `fractal_metrics.csv` — contains the calculated metrics for both fractals at each recursion depth.
+- `fractal_comparison.png` — contains graphs comparing the perimeter and area of the Koch Snowflake and Sierpiński Triangle at different recursion depths.
+
+---
 
 ## Libraries Used
 
@@ -103,13 +121,88 @@ The programs are implemented in Jupyter Notebook. To execute them:
 - **Math** — used for mathematical calculations such as coordinate construction, square roots, and angle conversions.
 - **Random** — used in the Chaos Game to randomly select a vertex of the triangle.
 
+---
+
 ## File Descriptions
 
-- **Koch Snowflake files** — contain recursive functions for generating the Koch Curve and Koch Snowflake, visualizations, perimeter and area calculations, recursive function call counting, data collection, CSV export, and graph generation.
-- **Sierpiński Triangle files** — contain recursive functions for subdividing triangles and visualizing the Sierpiński Triangle at different recursion depths.
-- **Chaos Game files** — contain the iterative Chaos Game algorithm and visualization of the resulting fractal pattern.
-- **Recursive Function and Call Tree files** — demonstrate recursive function execution and the structure of recursive calls.
-- **README.md** — provides an overview of the project, execution instructions, libraries used, file descriptions, contributions, and AI usage information.
+### `main.py`
+
+The main program responsible for running the fractal analysis and generating the comparison results.
+
+It includes:
+- Reading the maximum recursion depth from `config.txt`.
+- Computing perimeter, area, and other metrics for the Koch Snowflake and Sierpiński Triangle.
+- Creating a Pandas DataFrame to organize the calculated data.
+- Exporting the comparison data to a CSV file.
+- Generating graphs comparing perimeter and area against recursion depth.
+
+### `fractals.py`
+
+Contains the mathematical functions used to construct and calculate the fractals.
+
+It includes:
+- `koch_curve()` — recursively generates the vertices of a Koch Curve by subdividing a line segment into smaller segments and constructing a triangular protrusion using a 60-degree rotation.
+- `koch_snowflake()` — generates the vertices of a complete Koch Snowflake by applying the Koch Curve construction to all three sides of an equilateral triangle.
+- `sierpinski_triangles()` — recursively subdivides an equilateral triangle into smaller triangles to generate the Sierpiński Triangle.
+- `polygon_perimeter()` — calculates the perimeter of a polygon using its vertices.
+- `polygon_area()` — calculates the enclosed area of a polygon using the Shoelace Formula.
+
+### `requirements.txt`
+
+Lists the Python libraries required to run the program:
+
+- NumPy
+- Matplotlib
+- Pandas
+
+These libraries can be installed using `pip install -r requirements.txt`.
+
+### `output/fractal_comparison.png`
+
+An image containing two graphs generated by the program:
+
+- **Perimeter vs. Recursion Depth** — compares the total perimeter of the Koch Snowflake and Sierpiński Triangle as recursion depth increases.
+- **Area vs. Recursion Depth** — compares the enclosed area of both fractals at different recursion depths.
+
+The graphs are generated automatically by `main.py` and saved in the `output` directory.
+
+### `output/fractal_metrics.csv`
+
+A CSV file containing the calculated metrics for both fractals at recursion depths from 0 to the specified maximum depth.
+
+The data includes:
+- Recursion depth.
+- Number of segments in the Koch Snowflake.
+- Koch Snowflake perimeter and area.
+- Number of triangles in the Sierpiński Triangle.
+- Sierpiński Triangle perimeter and area.
+
+This file can be opened using spreadsheet applications such as Microsoft Excel or Google Sheets for further analysis.
+
+### `output/Snowflake_table.csv`
+
+A CSV file containing the Koch Snowflake data at different recursion depths.
+
+The data includes:
+- Recursion depth.
+- Number of segments.
+- Total perimeter.
+
+This file can be used to examine how the number of segments and perimeter of the Koch Snowflake change as recursion depth increases.
+
+### `__pycache__/`
+
+A folder automatically generated by Python to store compiled bytecode files, which can help Python load modules more efficiently.
+
+It is not necessary to modify or execute the files in this folder manually.
+
+### `config.txt` (Optional)
+
+A configuration file used to specify the maximum recursion depth of the fractal analysis.
+
+This file is not included in the ZIP by default. If it is not created, the program automatically uses a default maximum recursion depth of 6.
+
+---
 
 ## Contribution Statement
 
@@ -119,6 +212,8 @@ The programs are implemented in Jupyter Notebook. To execute them:
 - **Ronakorn Yotharrit:** Worked on the Koch Snowflake.
 - **Wanawee Kansiri:** Worked on the presentation slides.
 - **Panyakorn Warapak:** Worked on the Chaos Game and README file.
+
+---
 
 ## AI Usage Note
 
